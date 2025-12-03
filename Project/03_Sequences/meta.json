@@ -1,0 +1,24 @@
+{
+  "seq_len": 60,
+  "feature_cols": [
+    "log_ret_1m",
+    "log_ret_5m",
+    "log_ret_15m",
+    "vol_5m",
+    "vol_15m",
+    "range_pct_1m",
+    "range_pct_5m",
+    "body_pct",
+    "upper_wick_pct",
+    "lower_wick_pct",
+    "body_norm",
+    "volume_ratio_5m",
+    "volume_ratio_15m",
+    "log_rel_to_open",
+    "t_to_end_min"
+  ],
+  "label_col": "y_up",
+  "train_ratio": 0.8,
+  "num_train": 1893828,
+  "num_test": 473458
+}
