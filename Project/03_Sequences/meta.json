@@ -19,6 +19,6 @@
   ],
   "label_col": "y_up",
   "train_ratio": 0.8,
-  "num_train": 1893828,
+  "num_train": 1893829,
   "num_test": 473458
 }
