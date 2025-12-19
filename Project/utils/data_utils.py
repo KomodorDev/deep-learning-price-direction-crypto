@@ -6,6 +6,20 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 
+# -------------------------------------------------------------
+# PyTorch Dataset Wrapper for Time-Series Sequences
+# -------------------------------------------------------------
+# We define a custom Dataset to feed the LSTM batches of:
+#     X : (seq_len, num_features)
+#     y : scalar label (0/1)
+#
+# This dataset simply stores the pre-scaled NumPy arrays and
+# converts them to PyTorch tensors.
+#
+# NOTE:
+#   • y is stored as FLOAT because BCEWithLogitsLoss expects
+#     floating-point targets (0.0 or 1.0), not integers.
+# -------------------------------------------------------------
 class TimeSeriesDataset(Dataset):
     def __init__(self, X: np.ndarray, y: np.ndarray):
         self.X = torch.from_numpy(X).float()
