@@ -1,0 +1,20 @@
+{
+  "model_class": "LSTMClassifier",
+  "model_kwargs": {
+    "input_size": 15,
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.1
+  },
+  "train": {
+    "batch_size": 16,
+    "epochs": 10,
+    "learning_rate": {
+      "value": 0.001,
+      "repr": "1e-03"
+    },
+    "seed": 42,
+    "device": "mps"
+  },
+  "timestamp": "20251219-071043_UTC"
+}
