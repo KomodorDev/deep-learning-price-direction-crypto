@@ -1,0 +1,31 @@
+{
+  "train_losses": [
+    0.4612575443559612
+  ],
+  "train_accuracies": [
+    0.756702320459363
+  ],
+  "valid_losses": [
+    0.4376783637716801
+  ],
+  "valid_accuracies": [
+    0.7704164070503005
+  ],
+  "train_metrics": [
+    {
+      "TP": 643604,
+      "FP": 206217,
+      "TN": 646155,
+      "FN": 208471
+    }
+  ],
+  "valid_metrics": [
+    {
+      "TP": 74596,
+      "FP": 22150,
+      "TN": 71307,
+      "FN": 21329
+    }
+  ],
+  "best_model_path": "/Users/simonhinterreiter/Library/CloudStorage/Dropbox/06 - Coding/01 - Local Git Repos/02 - Mac/STUDY.DeepLearning/Project/runs/LSTMClassifier_seq60_bs16_20251220-081555_UTC/best_model.pt"
+}

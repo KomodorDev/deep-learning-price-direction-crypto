@@ -1,0 +1,24 @@
+{
+  "model_class": "LSTMClassifier",
+  "model_kwargs": {
+    "input_size": 15,
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.1
+  },
+  "seq_len": 60,
+  "train": {
+    "batch_size": 16,
+    "epochs_planned": 1,
+    "epochs_completed": 1,
+    "learning_rate": {
+      "value": 0.001,
+      "repr": "1e-03"
+    },
+    "seed": 42,
+    "device": "mps"
+  },
+  "timestamp": "20251220-081555_UTC",
+  "status": "finished",
+  "notes": "Set shuffle=True in train_loader for better training."
+}
