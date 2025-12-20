@@ -5,7 +5,6 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
 
-
 # -------------------------------------------------------------
 # PyTorch Dataset Wrapper for Time-Series Sequences
 # -------------------------------------------------------------
@@ -43,24 +42,63 @@ def load_config(run_dir: Path) -> dict:
     return json.loads((run_dir / "config.json").read_text())
 
 
-def make_test_loader(run_dir: Path, seq_dir: Path, shuffle: bool = False) -> DataLoader:
+
+
+def make_test_loader(run_dir: Path, seq_dir: Path, shuffle: bool = False):
     """
     Rebuild the test DataLoader exactly as training saw it:
-    - loads X_test/y_test from seq_dir
-    - loads scaler from run_dir
-    - applies scaler
+    - loads config.json from run_dir
+    - resolves the correct sequence folder (seq{seq_len})
+    - loads X_test/y_test from that folder
+    - loads scaler from run_dir and applies it
     - uses batch_size from config.json
     """
     config = load_config(run_dir)
     batch_size = config["train"]["batch_size"]
 
-    X_test = np.load(seq_dir / "X_test.npy")
-    y_test = np.load(seq_dir / "y_test.npy")
+    # ---------------------------------------------------------
+    # Resolve which folder actually contains X_test.npy
+    # ---------------------------------------------------------
+    # Case A: caller passed leaf folder already: .../03_Sequences/seq60
+    # Case B: caller passed base folder: .../03_Sequences
+    seq_len = config.get("seq_len", None)
 
-    scaler = joblib.load(run_dir / "scaler.joblib")
+    seq_leaf = seq_dir
+    if not (seq_leaf / "X_test.npy").exists():
+        if seq_len is None:
+            raise ValueError(
+                "Could not find X_test.npy in seq_dir, and config.json has no 'seq_len'. "
+                "Fix: add seq_len to config, or pass seq_dir pointing to .../seqXX."
+            )
+        seq_leaf = seq_dir / f"seq{seq_len}"
+
+    X_test_path = seq_leaf / "X_test.npy"
+    y_test_path = seq_leaf / "y_test.npy"
+
+    if not X_test_path.exists() or not y_test_path.exists():
+        raise FileNotFoundError(
+            f"Missing test arrays. Looked in: {seq_leaf}\n"
+            f"Expected: {X_test_path.name}, {y_test_path.name}"
+        )
+
+    # ---------------------------------------------------------
+    # Load + scale
+    # ---------------------------------------------------------
+    X_test = np.load(X_test_path)
+    y_test = np.load(y_test_path)
+
+    scaler_path = run_dir / "scaler.joblib"
+    if not scaler_path.exists():
+        raise FileNotFoundError(
+            f"Missing scaler at {scaler_path}. "
+            "Either save it during training or disable scaling in evaluation."
+        )
+
+    scaler = joblib.load(scaler_path)
     X_test_scaled = apply_scaler_3d(X_test, scaler)
 
     test_ds = TimeSeriesDataset(X_test_scaled, y_test)
     test_loader = DataLoader(test_ds, batch_size=batch_size, shuffle=shuffle)
 
     return test_loader, X_test, y_test, config
+
