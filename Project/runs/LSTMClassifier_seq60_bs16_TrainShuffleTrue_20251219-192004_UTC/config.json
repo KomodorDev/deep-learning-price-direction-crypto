@@ -6,10 +6,11 @@
     "num_layers": 2,
     "dropout": 0.1
   },
+  "seq_len": 60,
   "train": {
     "batch_size": 16,
     "epochs_planned": 10,
-    "epochs_completed": 0,
+    "epochs_completed": 10,
     "learning_rate": {
       "value": 0.001,
       "repr": "1e-03"
@@ -17,6 +18,7 @@
     "seed": 42,
     "device": "mps"
   },
-  "timestamp": "20251219-082239_UTC",
-  "status": "running"
+  "timestamp": "20251219-192004_UTC",
+  "status": "finished",
+  "notes": "Set shuffle=True in train_loader for better training."
 }
