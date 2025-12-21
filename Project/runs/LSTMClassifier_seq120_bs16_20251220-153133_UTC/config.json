@@ -9,8 +9,8 @@
   "seq_len": 120,
   "train": {
     "batch_size": 16,
-    "epochs_planned": 10,
-    "epochs_completed": 10,
+    "epochs_planned": 1,
+    "epochs_completed": 1,
     "learning_rate": {
       "value": 0.001,
       "repr": "1e-03"
@@ -18,7 +18,7 @@
     "seed": 42,
     "device": "mps"
   },
-  "timestamp": "20251219-125309_UTC",
+  "timestamp": "20251220-153133_UTC",
   "status": "finished",
-  "notes": "Nothing special. Basic LSTM training run."
+  "notes": "Set shuffle=True in train_loader for better training."
 }
