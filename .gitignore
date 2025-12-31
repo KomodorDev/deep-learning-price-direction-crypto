@@ -210,8 +210,10 @@ Project/01_Data/cadli_btcusd_1m_2025-11-29_to_2025-12-01.csv
 Project/02_Features/cadli_btcusd_1m_features_labels_2021-06-01_to_2025-12-01.csv
 .gitignore
 Project/02_Features/cadli_btcusd_1m_features_2021-06-01_to_2025-12-01.csv
-Project/03_Sequences/X_test.npy
-Project/03_Sequences/X_train.npy
-Project/03_Sequences/y_test.npy
-Project/03_Sequences/y_train.npy
-Project/04_Models/best_lstm_model.pt
+
+# --- Generated sequence data ---
+Project/03_Sequences/*.npy
+Project/03_Sequences/**/*.npy
+
+# --- Trained models ---
+Project/04_Models/*.pt
